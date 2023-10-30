@@ -1,8 +1,8 @@
  ♥️ Django
 
-Ablog
+Ablog - Group Project
 
-Gruop Project - Text to Audio generator
+>> Text to Audio generator
 
 Homework_10 - create interface
 1. home - title
