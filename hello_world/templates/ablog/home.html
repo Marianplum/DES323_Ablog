@@ -9,32 +9,32 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            background-color: #fff; /* Set the background color for the entire page */
+            background-color: #fff; 
         }
 
         #content {
             display: flex;
             justify-content: center;
             width: 100%;
-            margin-top: 20px; /* Add margin to move the content down */
+            margin-top: 20px; 
         }
 
         #library-section {
             display: flex;
             flex-direction: column;
-            align-items: flex-start; /* Align the library section to the left */
+            align-items: flex-start; 
         }
 
         #library-title {
             font-size: 24px;
             font-weight: bold;
-            margin-left: 20px; /* Add left margin to separate the title from the left edge */
+            margin-left: 20px; 
         }
 
         #library-grid {
             display: grid;
-            grid-template-columns: repeat(2, 1fr); /* 2 columns */
-            grid-template-rows: repeat(3, 1fr); /* 3 rows */
+            grid-template-columns: repeat(2, 1fr); 
+            grid-template-rows: repeat(3, 1fr); 
             grid-gap: 20px;
             margin-top: 20px;
         }
@@ -52,9 +52,9 @@
         }
 
         .separator {
-            border-right: 2px solid #6366f1; /* Add a vertical line between the library and button */
+            border-right: 2px solid #6366f1; 
             height: 100%;
-            margin: 0 20px; /* Create equal space on both sides of the separator */
+            margin: 0 20px; 
         }
 
         #post-blog-section {
@@ -64,26 +64,26 @@
         }
 
         #post-blog-button {
-            background-color: #6366f1; /* Set the button background color to blue */
-            color: white; /* Set the button text color to white */
+            background-color: #6366f1; 
+            color: white; 
             padding: 10px 20px;
             border: none;
             cursor: pointer;
-            margin-top: 20px; /* Add margin to move the button down */
+            margin-top: 20px;
             border-radius: 10px;
         }
 
         #recently-title {
             font-size: 15px;
             font-weight: bold;
-            margin-top: 20px; /* Add margin to separate the "Recently" title from the button */
+            margin-top: 20px; 
             margin-right : 70px;
         }
 
         #recently-grid {
             display: grid;
-            grid-template-columns: 1fr; /* 1 column */
-            grid-template-rows: repeat(3, 1fr); /* 3 rows */
+            grid-template-columns: 1fr;
+            grid-template-rows: 
             grid-gap: 20px;
         }
 
@@ -102,7 +102,6 @@
         <div id="library-section">
             <div id="library-title">Library</div>
             <div id="library-grid">
-                <!-- 2 x 3 grid with text "Topic" and links to detail.html -->
                 <a href="detail/1" class="library-item">Topic</a>
                 <a href="detail/2" class="library-item">Topic</a>
                 <a href="detail/3" class="library-item">Topic</a>
@@ -111,12 +110,12 @@
                 <a href="detail/6" class="library-item">Topic</a>
             </div>
         </div>
-        <div class="separator"></div> <!-- Vertical line separator -->
+        <div class="separator"></div> 
         <div id="post-blog-section">
             <a href="blogpost">
                 <button id="post-blog-button">Post Your Blog</button>
             </a>
-            <div id="recently-title">Recently</div> <!-- "Recently" title under the button -->
+            <div id="recently-title">Recently</div> 
             <div id="recently-grid">
                 <a href="detail/7" class="recent-item">Topic</a>
                 <a href="detail/8" class="recent-item">Topic</a>
