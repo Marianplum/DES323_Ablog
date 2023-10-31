@@ -7,6 +7,10 @@
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #f1f1f1; /* Set the background color for the entire page */
         }
 
         header {
@@ -16,35 +20,63 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            width: 100%;
         }
 
         header h1 {
             margin: 0;
         }
 
-        #nav-links {
+        header #nav-links {
             display: flex;
+            align-items: center;
         }
 
-        #nav-links a {
+        header #nav-links a {
             color: #fff;
             text-decoration: none;
             margin: 0 10px;
         }
 
-        #library-container {
+        #content {
             display: flex;
-            flex-direction: column;
-            width: 66%;
-            height: 100vh;
-            background-color: #f1f1f1;
+            justify-content: space-between;
+            width: 100%;
+            margin-top: 20px; /* Add margin to move the content down */
         }
 
-        #recently-container {
-            width: 34%;
-            padding: 20px;
-            text-align: center;
+        #library-section {
+            flex: 2;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        #library-title {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        #library-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr); /* 3 columns */
+            grid-template-rows: repeat(2, 1fr); /* 2 rows */
+            grid-gap: 20px;
+            margin-top: 20px;
+        }
+
+        .library-item {
+            width: 100px;
+            height: 100px;
             background-color: #fff;
+            border: 1px solid #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #post-blog-section {
+            flex: 1;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -56,6 +88,8 @@
             padding: 10px 20px;
             border: none;
             cursor: pointer;
+            align-self: flex-end; /* Set the button to the right */
+            margin-top: 20px; /* Add margin to move the button down */
         }
     </style>
 </head>
@@ -68,12 +102,23 @@
         </div>
     </header>
 
-    <div id="library-container">
-        <!-- Content for the library goes here -->
-    </div>
+    <div id="content">
+        <div id="library-section">
+            <div id="library-title">Library</div>
+            <div id="library-grid">
+                <!-- 3 x 2 grid with text "Topic" -->
+                <div class="library-item">Topic</div>
+                <div class="library-item">Topic</div>
+                <div class="library-item">Topic</div>
+                <div class="library-item">Topic</div>
+                <div class="library-item">Topic</div>
+                <div class="library-item">Topic</div>
+            </div>
+        </div>
 
-    <div id="recently-container">
-        <button id="post-blog-button">Post Your Blog</button>
+        <div id="post-blog-section">
+            <button id="post-blog-button">Post Your Blog</button>
+        </div>
     </div>
 
     <script>
