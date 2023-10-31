@@ -1,15 +1,11 @@
  ♥️ Django
 
-Ablog
+Ablog - Group Project
 
-Gruop Project - Text to Audio generator
+>> Text to Audio generator
 
-```python
-python manage.py collectstatic
-```
-
-To run this application:
-
-```python
-python manage.py runserver
-```
+Homework_10 - create interface each page
+1. home - title
+2. details - Farm
+3. blog post - Ice
+4. profile + setting - Maprang

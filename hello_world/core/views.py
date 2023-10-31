@@ -2,7 +2,7 @@ from django.shortcuts import render
 
 def index(request):
     context = {
-        "title": "Django example",
+        "title": "Ablog",
     }
     return render(request, "index.html", context)
 
