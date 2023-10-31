@@ -1,0 +1,128 @@
+{% extends 'ablog/layout.html' %} 
+{% block title %}Home{% endblock %}
+{% block content %}
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #fff; /* Set the background color for the entire page */
+        }
+
+        #content {
+            display: flex;
+            justify-content: center;
+            width: 100%;
+            margin-top: 20px; /* Add margin to move the content down */
+        }
+
+        #library-section {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start; /* Align the library section to the left */
+        }
+
+        #library-title {
+            font-size: 24px;
+            font-weight: bold;
+            margin-left: 20px; /* Add left margin to separate the title from the left edge */
+        }
+
+        #library-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr); /* 2 columns */
+            grid-template-rows: repeat(3, 1fr); /* 3 rows */
+            grid-gap: 20px;
+            margin-top: 20px;
+        }
+
+        .library-item {
+            width: 100px;
+            height: 117px;
+            background-color: #fff;
+            border: 1px solid #6366f1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 10px;
+        }
+
+        .separator {
+            border-right: 2px solid #6366f1; /* Add a vertical line between the library and button */
+            height: 100%;
+            margin: 0 20px; /* Create equal space on both sides of the separator */
+        }
+
+        #post-blog-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        #post-blog-button {
+            background-color: #6366f1; /* Set the button background color to blue */
+            color: white; /* Set the button text color to white */
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            margin-top: 20px; /* Add margin to move the button down */
+            border-radius: 10px;
+        }
+
+        #recently-title {
+            font-size: 15px;
+            font-weight: bold;
+            margin-top: 20px; /* Add margin to separate the "Recently" title from the button */
+            margin-right : 70px;
+        }
+
+        #recently-grid {
+            display: grid;
+            grid-template-columns: 1fr; /* 1 column */
+            grid-template-rows: repeat(3, 1fr); /* 3 rows */
+            grid-gap: 20px;
+        }
+
+        .recent-item {
+            width: 130px;
+            height: 100px;
+            background-color: #fff;
+            border: 1px solid #6366f1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 10px;
+        }
+    </style>
+    <div id="content">
+        <div id="library-section">
+            <div id="library-title">Library</div>
+            <div id="library-grid">
+                <!-- 2 x 3 grid with text "Topic" -->
+                <div class="library-item">Topic</div>
+                <div class="library-item">Topic</div>
+                <div class="library-item">Topic</div>
+                <div class="library-item">Topic</div>
+                <div class="library-item">Topic</div>
+                <div class="library-item">Topic</div>
+            </div>
+        </div>
+        <div class="separator"></div> <!-- Vertical line separator -->
+        <div id="post-blog-section">
+            <a href="blogpost">
+                <button id="post-blog-button">Post Your Blog</button>
+            </a>
+            <div id="recently-title">Recently</div> <!-- "Recently" title under the button -->
+            <div id="recently-grid">
+                <!-- 3 x 1 grid with rectangles -->
+                
+                <div class="recent-item">Topic</div>
+                <div class="recent-item">Topic</div>
+                <div class="recent-item">Topic</div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
