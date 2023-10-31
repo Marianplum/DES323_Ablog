@@ -6,6 +6,13 @@ def index(request):
     }
     return render(request, "index.html", context)
 
+def blog_post(request):
+    context = {}
+    return render(request, "ablog/blog-post.html", context=context)
 def home(request):
     context = {"title": "Home"}
     return render(request, "home.html", context=context)
+
+def profile(request):
+    context = {}
+    return render(request, "ablog/profile.html", context=context)
