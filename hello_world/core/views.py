@@ -9,3 +9,7 @@ def index(request):
 def blog_post(request):
     context = {}
     return render(request, "ablog/blog-post.html", context=context)
+
+def profile(request):
+    context = {}
+    return render(request, "ablog/profile.html", context=context)
