@@ -26,6 +26,7 @@ urlpatterns = [
     path("__reload__/", include("django_browser_reload.urls")),
     path("blogpost", core_views.blog_post),
     path("profile", core_views.profile),
+    path("detail/<int:blogid>", core_views.blogDetail)
 
 ]
 if settings.DEBUG:
