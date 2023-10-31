@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>ABlog</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header h1 {
+            margin: 0;
+        }
+
+        #nav-links {
+            display: flex;
+        }
+
+        #nav-links a {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+
+        #library-container {
+            display: flex;
+            flex-direction: column;
+            width: 66%;
+            height: 100vh;
+            background-color: #f1f1f1;
+        }
+
+        #recently-container {
+            width: 34%;
+            padding: 20px;
+            text-align: center;
+            background-color: #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        #post-blog-button {
+            background-color: #333;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>ABlog</h1>
+        <div id="nav-links">
+            <a href="#">Library</a>
+            <a href="#">Settings</a>
+        </div>
+    </header>
+
+    <div id="library-container">
+        <!-- Content for the library goes here -->
+    </div>
+
+    <div id="recently-container">
+        <button id="post-blog-button">Post Your Blog</button>
+    </div>
+
+    <script>
+        // JavaScript code can be added here for functionality if needed.
+    </script>
+</body>
+</html>
