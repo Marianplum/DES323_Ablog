@@ -1,8 +1,9 @@
 {% extends 'ablog/layout.html' %} 
 
-{% block title %}Blog Post{% endblock %}
+{% block title %} Blog Post {% endblock %}
 
 {% block content %}
+
 <style>
     .textarea-fileinput, .textarea-fileinput::file-selector-button {
         width: 15em;
@@ -21,31 +22,31 @@
         border: none;
     }
 </style>
-<div class="flex">
-    <div class="flex-1">
 
-        <div class="pl-10 pt-10 pb-5 m-auto text-left text-indigo-500 px-5 py-4 text-3xl font-medium"><p>Blog Post</p></div>
-        <div class="pl-5 m-auto text-left text-indigo-500 text-2xl font-medium"><p>Title</p></div>
+<div class="flex flex-row m-5">
+    <div class="flex-1 flex-col m-15">
+
+        <div class="pl-10 pt-10 pb-5 m-auto text-left text-black px-5 py-4 text-3xl font-medium"><p>Blog Post</p></div>
+        <div class="pl-10 m-auto text-left text-indigo-500 text-2xl font-medium"><p>Title</p></div>
             <div class="bg-light p-3 rounded mx-md-5 ">
-                <input type="text" class="w-96 h-8 border-solid border-2 border-indigo-200 rounded-md">
+                <input type="text" class="w-9/12 ml-10 h-8 border-solid border-2 border-indigo-200 rounded-md">
             </div>
-        <div class="pl-5 m-auto text-left text-indigo-500 text-2xl font-medium"><p>Content</p></div>
+        <div class="pl-10 m-auto text-left text-indigo-500 text-2xl font-medium"><p>Content</p></div>
         
         <div data-field-wrapper="some_text_area">
             <form class=" bg-light p-3 rounded mx-md-5 ">
-                <textarea class="w-96 h-60 overflow-auto form-control mb-2 border-solid border-2 border-indigo-200 rounded-md"></textarea>
+                <textarea class="w-full ml-10 mr-10 h-60 overflow-auto form-control mb-2 border-solid border-2 border-indigo-200 rounded-md"></textarea>
             </form>   
         </div>
 
     </div>
-    <div class=" flex-col p-10 m-auto">
+    <div class="flex-2 flex-col p-10">
         <div class="m-5"><input type="file" class="form-control textarea-fileinput rounded-md"></div>
         <div class="m-5"><input type="file" class="form-control img-fileinput" accept="image/*"></div>
         <div class="m-5 text-center bg-indigo-500 text-white rounded-md h-10 "><button class="p-2" type="button" onclick="post_blog()">Post</button></div>
         <div class="m-5 text-center bg-indigo-100 text-indigo-500 rounded-md h-10  rounded-md h-10 "><button class="p-2" type="button" onclick="window.location.replace('/')">Cancel</button></div>
     </div>
 </div>
-
 
 
 <script>
