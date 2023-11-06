@@ -1,5 +1,7 @@
 {% extends 'ablog/layout.html' %} 
+
 {% block title %}Home{% endblock %}
+
 {% block content %}
 
     <style>
@@ -20,7 +22,7 @@
         }
 
         #library-title {
-            font-size: 24px;
+            font-size: 40px;
             font-weight: bold;
             margin-left: 20px; 
         }
@@ -34,21 +36,22 @@
         }
 
         .library-item {
-            width: 200px;
-            height: 117px;
+            width: 500px;
+            height: 170px;
             background-color: #fff;
             border: 1px solid #6366f1;
             display: flex;
             justify-content: center;
             align-items: center;
             border-radius: 10px;
-            margin-left:10px
+            margin-left:20px
         }
 
         .separator {
             border-right: 2px solid #6366f1; 
             height: 100%;
-            margin: 0 20px; 
+            margin: 0 20px;
+            margin-left:60px 
         }
 
         #post-blog-section {
@@ -68,10 +71,10 @@
         }
 
         #recently-title {
-            font-size: 15px;
+            font-size: 30px;
             font-weight: bold;
             margin-top: 20px; 
-            margin-right : 130px;
+            margin-right : 350px;
         }
 
         #recently-grid {
@@ -82,8 +85,8 @@
         }
 
         .recent-item {
-            width: 200px;
-            height: 100px;
+            width: 500px;
+            height: 155px;
             background-color: #fff;
             border: 1px solid #6366f1;
             display: flex;
