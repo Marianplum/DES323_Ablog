@@ -14,6 +14,8 @@ from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "/workspaces/tts-django-404318-1827d7040649.json"
+
 
 
 # Quick-start development settings - unsuitable for production
@@ -42,6 +44,8 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "django_browser_reload",
+    "blogapi",
+    "rest_framework",
 ]
 
 MIDDLEWARE = [
