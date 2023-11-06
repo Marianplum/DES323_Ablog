@@ -1,9 +1,80 @@
 {% extends 'ablog/layout.html' %} 
 
+{% block title %} Profile/Setting {% endblock %}
+
 {% block content %}
 
-<div>
-    <h1> test in profilelll </h1>
+<div class="flex">
+    
+    <div class="flex-1 flex-col my-8 mx-10 mr-[50px]">
+        <h1 class="text-black px-5 py-4 text-2xl font-medium"> Profile </h1>
+        <div class="bg-cover bg-center rounded-full h-[200px] w-[200px] m-auto justify-items-center" 
+            style="background-image: url(https://steamuserimages-a.akamaihd.net/ugc/1856057400283516643/F6E35AAF1B0D07F0D6D776149BC24E267A435D1A/?imw=637&imh=358&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=true)">
+        </div>
+
+        <div class="my-8">
+            <label for="username" class="block mb-2 text-sm font-medium text-gray-900 dark:text-black"> Username </label>
+            <label id="username" rows="4" class="block p-2.5 w-full text-sm text-red bg-white rounded-lg border border-indigo-400 dark:bg-white dark:border-red dark:text-red dark:focus:ring-blue-500 dark:focus:border-blue-500" >
+                Bobby
+            </label>
+        </div>
+    
+        <div class="my-8">
+            <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-black"> Email </label>
+            <label id="email" rows="4" class="block p-2.5 w-full text-sm text-red bg-white rounded-lg border border-indigo-400 dark:bg-white dark:border-red dark:text-red dark:focus:ring-blue-500 dark:focus:border-blue-500" >
+                Bobby@gmail.com
+            </label>
+        </div>
+
+        <button class="flex bg-[#FF7168] hover:bg-indigo-400 text-white font-bold py-3 px-10 rounded-full justify-center items-center m-auto"
+        onclick="on_click()">
+            Logout
+        </button>
+        <script>
+            function on_click() {
+                alert('You are already Logout')
+                console.log("user logout")
+            }
+        </script>
+
+    </div>
+
+    <div class="grid grid-cols-3 divide-x divide-indigo-400">
+        <div></div>
+        <div></div>
+    </div>
+
+    <div class="flex-3 my-8 mx-5 ml-[50px]">
+        <h1 class="text-black px-5 py-4 text-2xl font-medium"> Setting </h1>
+        <!-- <h3> Darkmode </h3> -->
+        <div>
+            <label class="flex items-center relative w-max cursor-pointer select-none mt-[50px]">
+                <span class="text-lg mr-[200px]"> Darkmode </span>
+                <input type="checkbox" class="appearance-none transition-colors cursor-pointer w-14 h-7 rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-black focus:ring-blue-500 bg-indigo-400" />
+                <span class="absolute font-medium text-xs uppercase right-1 text-white"> OFF </span>
+                <span class="absolute font-medium text-xs uppercase right-8 text-white"> ON </span>
+                <span class="w-7 h-7 right-7 absolute rounded-full transform transition-transform bg-gray-200" />
+            </label>
+
+            <style>
+                /* body {
+                  /* background-color: #ffffff; bg-true-gray-900 */
+                  /* color: white; */
+                /* }  */
+              
+                input:checked {
+                  background-color: #22c55e; /* bg-green-500 */
+                }
+              
+                input:checked ~ span:last-child {
+                  --tw-translate-x: 1.75rem; /* translate-x-7 */
+                }
+              </style>
+              
+        </div>
+        
+    </div>
+
 </div>
 
 {% endblock %}

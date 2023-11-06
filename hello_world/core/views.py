@@ -9,6 +9,7 @@ def index(request):
 def blog_post(request):
     context = {}
     return render(request, "ablog/blog-post.html", context=context)
+
 def home(request):
     context = {"title": "Home"}
     return render(request, "ablog/home.html", context=context)
