@@ -77,3 +77,14 @@ def generate_unique_filename(filename, extension):
     # Combine the timestamp and random ID to create a unique file name
     unique_filename = f"{timestamp}_{unique_id}.{extension}"
     return unique_filename
+
+
+
+# install latest version of Django Rest-framework
+# pip install djangorestframework markdown django-filter django-cors-headers
+
+# save package version requirements
+# pip freeze > requirements.txt
+
+# set environment for api google-cloud - texttospeech
+# pip install --upgrade google-cloud-texttospeech
