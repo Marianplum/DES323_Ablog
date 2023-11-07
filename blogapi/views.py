@@ -60,8 +60,10 @@ def textToSpeech(request):
             # Save the audio content with the unique file name
             with open(audio_file_path, "wb") as out:
                 out.write(response.audio_content)
+            
+            file_size = os.path.getsize(audio_file_path)
 
-            return JsonResponse({'filepath': audio_file_path}, status=200)
+            return JsonResponse({'filepath': audio_file_path,'filesize': file_size}, status=200)
 
         except json.JSONDecodeError:
             return JsonResponse({'error': 'Invalid JSON input'}, status=400)
