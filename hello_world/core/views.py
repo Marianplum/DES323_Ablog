@@ -21,6 +21,10 @@ def profile(request):
     context = {}
     return render(request, "ablog/profile.html", context=context)
 
+def dashboard(request):
+    context = {}
+    return render(request, "ablog/dashboard.html", context=context)
+
 def blogDetail(request,blogid):
     ##call api to get blog detail
     url = "http://127.0.0.1:8000/apiBlog/"+str(blogid)+"/"

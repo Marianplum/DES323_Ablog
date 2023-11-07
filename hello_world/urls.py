@@ -29,7 +29,8 @@ urlpatterns = [
     path("home", core_views.home),
     path("blogpost", core_views.blog_post),
     path("profile", core_views.profile),
-    path("detail/<int:blogid>", core_views.blogDetail)
+    path("detail/<int:blogid>", core_views.blogDetail),
+    path("dash", core_views.dashboard),
 
 ]
 if settings.DEBUG:
