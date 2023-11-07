@@ -1,42 +1,120 @@
 {% extends 'ablog/layout.html' %} 
 
+{% block title %} Dashboard {% endblock %}
+
 {% block content %}
 
-<h1> test dash </h1>
 
-<!-- <script>
-    async function refresh_visual() {
-    let weather_data = await
-    axios.get('https://api.open-meteo.com/v1/forecast?latitude=14.0135&longitude=100.5305&daily=temperature_2m_max,temperature_2m_min,rain_sum&timezone=Asia%2FBangkok&start_date=2023-10-18&
-    end_date=2023-10-25')
-    .then(function (response) {
-    // handle success
-    return response.data['daily'];
-    });
-    let temp_max = [];
-    let temp_min = [];
-    weather_data['time'].forEach((data, index) => {
-    let max_obj = {
-    "date": new Date(data),
-    "temperature": weather_data['temperature_2m_max'][index]
-    }
-    let min_obj = {
-    "date": new Date(data),
-    "temperature": weather_data['temperature_2m_min'][index]
-    }
-    temp_max.push(max_obj);
-    temp_min.push(min_obj);
-    });
-    const plot = Plot.plot({
-    marks: [
-    Plot.lineY(temp_max, { x: "date", y: "temperature", tip: "x", stroke: "red" }),
-    Plot.lineY(temp_min, { x: "date", y: "temperature", tip: "x", stroke: "blue" }),
-    ]
-    })
-    const div = document.getElementById('visual');
-    div.append(plot);
-    }
-    refresh_visual(); //Call refresh_visual methods when page is loaded
-</script> -->
+<head>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+
+<body>
+
+    <!-- <h1> test dash </h1> -->
+
+    <button id="fetchDataButton" class="m-5 text-center bg-indigo-500 text-white rounded-md h-10 px-5 hover:bg-indigo-400"> See the Views </button>
+    <div id="chart"></div>
+
+    <script>
+        async function display_visual() {
+
+            try {
+                const response = await axios.get('http://localhost:8000/apiBlog/');
+                return response.data;
+            } catch (error) {
+                console.error(error);
+                throw error;
+            }
+        }
+
+        // Define a function to create the chart using D3.js
+        function createChart(data) {
+            // Define the dimensions of the chart
+            const margin = { top: 20, right: 30, bottom: 40, left: 40 };
+            const width = 800 - margin.left - margin.right;
+            const height = 400 - margin.top - margin.bottom;
+
+            // Extract and format the data
+            const viewsData = data.map(d => ({
+                date: new Date(d.date), // Assuming date is in a suitable format
+                views: +d.views // Assuming views are provided as numbers
+            }));
+
+            // Create scales for the X and Y axes
+            const xScale = d3.scaleBand()
+                .domain(viewsData.map(d => d.date))
+                .range([0, width])
+                .padding(0.1);
+
+            const yScale = d3.scaleLinear()
+                .domain([0, d3.max(viewsData, d => d.views)])
+                .nice()
+                .range([height, 0]);
+
+            // Create an SVG container
+            const svg = d3.select('#chart')
+                .append('svg')
+                .attr('width', width + margin.left + margin.right)
+                .attr('height', height + margin.top + margin.bottom)
+                .append('g')
+                .attr('transform', `translate(${margin.left}, ${margin.top})`);
+
+            // Create and style the bars
+            svg.selectAll('rect')
+                .data(viewsData)
+                .enter()
+                .append('rect')
+                .attr('x', d => xScale(d.date))
+                .attr('y', d => yScale(d.views))
+                .attr('width', xScale.bandwidth())
+                .attr('height', d => height - yScale(d.views))
+                .attr('fill', 'steelblue');
+
+            // Create X and Y axes
+            const xAxis = d3.axisBottom(xScale);
+            const yAxis = d3.axisLeft(yScale);
+
+            svg.append('g')
+                .attr('class', 'x-axis')
+                .attr('transform', `translate(0, ${height})`)
+                .call(xAxis);
+
+            svg.append('g')
+                .attr('class', 'y-axis')
+                .call(yAxis);
+
+            // Add labels
+            svg.append('text')
+                .attr('x', width / 2)
+                .attr('y', height + margin.top + 20)
+                .attr('text-anchor', 'middle')
+                .text('Date');
+
+            svg.append('text')
+                .attr('transform', 'rotate(-90)')
+                .attr('x', -height / 2)
+                .attr('y', -margin.left)
+                .attr('text-anchor', 'middle')
+                .text('Views');
+
+        }
+
+        // Add a click event listener to fetch and display the data
+        document.getElementById('fetchDataButton').addEventListener('click', async () => {
+            try {
+                const data = await fetchDataFromApi();
+                createChart(data);
+            } catch (error) {
+                console.error('Failed to fetch and display data:', error);
+            }
+        });
+
+        display_visual()
+
+    </script>
+</body>
+
 
 {% endblock %}
