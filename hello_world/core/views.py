@@ -66,7 +66,14 @@ def blog_post(request):
 
 
 def home(request):
-    context = {"title": "Home"}
+    url = "http://127.0.0.1:8000/apiBlog/"
+    res = requests.get(url)
+    api_data = res.json()
+    
+    context = {
+        "title": "Home",
+        "data" : api_data,
+        }
     return render(request, "ablog/home.html", context=context)
 
 def profile(request):
@@ -74,7 +81,13 @@ def profile(request):
     return render(request, "ablog/profile.html", context=context)
 
 def dashboard(request):
-    context = {}
+    url = "http://127.0.0.1:8000/apiBlog/"
+    res = requests.get(url)
+    api_data = res.json()
+
+    context = {
+        
+    }
     return render(request, "ablog/dashboard.html", context=context)
 
 def blogDetail(request,blogid):
