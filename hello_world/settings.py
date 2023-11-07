@@ -57,6 +57,7 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "django_browser_reload.middleware.BrowserReloadMiddleware",
+    "django.middleware.csrf.CsrfViewMiddleware",
 ]
 
 X_FRAME_OPTIONS = "ALLOW-FROM preview.app.github.dev"

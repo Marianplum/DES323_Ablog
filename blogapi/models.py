@@ -6,6 +6,7 @@ from django.db import models
 class Blog(models.Model):
     blog_id = models.AutoField(primary_key=True)
     title = models.CharField(max_length=100)
+    picUrl = models.CharField(max_length=255)
     content = models.TextField()
     audio_path = models.CharField(max_length=255)
     file_size = models.FloatField()

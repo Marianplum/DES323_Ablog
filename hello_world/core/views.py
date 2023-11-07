@@ -2,6 +2,10 @@ from django.shortcuts import render
 import requests
 import json
 from datetime import datetime
+from django.http import HttpResponse
+from django.views.decorators.csrf import csrf_protect
+from django.http import HttpResponseRedirect
+import re
 
 def index(request):
     context = {
@@ -9,9 +13,57 @@ def index(request):
     }
     return render(request, "index.html", context)
 
+@csrf_protect
 def blog_post(request):
+
+    if request.method == "POST":
+        print('form data :', request.POST )
+        ##pass text to tss api
+        url = "http://127.0.0.1:8000/api/tts"
+        payload = {'text':request.POST.get("content")}
+        payload_json = json.dumps(payload)
+        res = requests.post(url, data=payload_json, headers={'Content-Type': 'application/json'})
+
+        if res.status_code == 200:
+            print('API call was successful')
+            api_response = res.json()  
+            print('API response:', api_response)
+
+            url2 = "http://127.0.0.1:8000/apiBlog/"
+            payload2 = {
+                            "title": request.POST.get("title"),
+                            "picUrl": request.POST.get("picUrl"),
+                            "content": request.POST.get("content"),
+                            "audio_path": api_response['filepath'],
+                            "file_size": api_response['filesize'],
+                            "view": 1,
+                        }
+            payload2_json = json.dumps(payload2)
+            res2 = requests.post(url2, data=payload2_json, headers={'Content-Type': 'application/json'})
+            if res2.status_code == 201:
+                print('API call was successful')
+                api_response2 = res2.json()  
+                print('API response:', api_response2)
+
+                match = re.search(r'(\d+)(?!.*\d)', api_response2['url'])
+                if match:
+                    number = int(match.group())
+                    redirect_url = f'/detail/{number}'
+                    return HttpResponseRedirect(redirect_url)
+                else:
+                    return HttpResponseRedirect('/home')
+
+                
+            else:
+                print('API 2 call failed with status code:', res2.status_code, res2.text)
+                return HttpResponseRedirect('/blogpost')
+        else:
+            print('API call failed with status code:', res.status_code, res.text)
+
+
     context = {}
     return render(request, "ablog/blog-post.html", context=context)
+
 
 def home(request):
     context = {"title": "Home"}
@@ -32,23 +84,25 @@ def blogDetail(request,blogid):
     res = requests.get(url)
 
     api_data = res.json()
+    
 
     date_obj = datetime.strptime(api_data['date_create'], '%Y-%m-%dT%H:%M:%S.%fZ')
     formatted_date = date_obj.strftime('%d / %m / %Y')
 
     dataObj = { 
-        "coverImage" : "https://t3.ftcdn.net/jpg/05/91/97/64/360_F_591976463_KMZyV6obpsrN2bJJJkYW0bzoH2XxLTlA.jpg",
+        "coverImage" : api_data['picUrl'],
         "topic" : api_data['title'],
         "date" : formatted_date,
         "content" : api_data['content'],
         "file_path" : api_data['audio_path'],
         "file_size" : api_data['file_size'],
     }
-
+    
     context = {
         "title" : "BlogDetail",
         "id": blogid,
-        "data": dataObj
+        "data": dataObj,
     }
     return render(request, "ablog/detail.html", context=context)
+
 

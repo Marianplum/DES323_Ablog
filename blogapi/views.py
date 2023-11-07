@@ -7,6 +7,7 @@ import json
 import uuid
 import time
 from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_protect
 
 
 
@@ -32,7 +33,7 @@ def textToSpeech(request):
         try:
             # Parse JSON data from the request body
             data = json.loads(request.body)
-            text = data.get('text', "Hello, World!")  # Use the provided text or a default value
+            text = data.get('text', "Hello, World!")  # Use the provided text or a default value {"text" : 'fggdfkgjsdflkgjsdklfgjsldfkgj'}
 
             # Generate a unique file name based on the current timestamp and a random ID
             extension = 'mp3'
