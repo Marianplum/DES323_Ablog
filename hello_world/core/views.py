@@ -6,6 +6,8 @@ from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_protect
 from django.http import HttpResponseRedirect
 import re
+from rest_framework.response import Response
+from django.http import HttpResponseNotFound
 
 def index(request):
     context = {
@@ -91,31 +93,58 @@ def dashboard(request):
     return render(request, "ablog/dashboard.html", context=context)
 
 def blogDetail(request,blogid):
+
+    if request.method == "POST" and request.POST.get('_method') == 'delete':
+        delete_url = "http://127.0.0.1:8000/apiBlog/"+str(blogid)+"/"
+        res = requests.delete(delete_url)
+        if res.status_code == 204:
+            print('API call was successful')
+            data = {'message': 'Blog post deleted successfully', 'deleted': True}
+            return render(request, "ablog/popup.html",data)
+        
+        else:
+            print('API call failed with status code:', res.status_code, res.text)
+            redirect = '/detail/'+str(blogid)
+            return HttpResponseRedirect(redirect)
+            
+
+
     ##call api to get blog detail
     url = "http://127.0.0.1:8000/apiBlog/"+str(blogid)+"/"
 
     res = requests.get(url)
 
-    api_data = res.json()
-    
+    if res.status_code == 200:
 
-    date_obj = datetime.strptime(api_data['date_create'], '%Y-%m-%dT%H:%M:%S.%fZ')
-    formatted_date = date_obj.strftime('%d / %m / %Y')
+        api_data = res.json()
 
-    dataObj = { 
-        "coverImage" : api_data['picUrl'],
-        "topic" : api_data['title'],
-        "date" : formatted_date,
-        "content" : api_data['content'],
-        "file_path" : api_data['audio_path'],
-        "file_size" : api_data['file_size'],
-    }
+        
+
+        date_obj = datetime.strptime(api_data['date_create'], '%Y-%m-%dT%H:%M:%S.%fZ')
+        formatted_date = date_obj.strftime('%d / %m / %Y')
+
+        audio_path = api_data['audio_path']
+        audio_path = audio_path[len('hello_world/static/'):] 
+
+        dataObj = { 
+            "coverImage" : api_data['picUrl'],
+            "topic" : api_data['title'],
+            "date" : formatted_date,
+            "content" : api_data['content'],
+            "file_path" : audio_path,
+            "file_size" : api_data['file_size'],
+            "url" : api_data['url'],
+        }
+        
+        context = {
+            "title" : "BlogDetail",
+            "id": blogid,
+            "data": dataObj,
+        }
+        return render(request, "ablog/detail.html", context=context)
     
-    context = {
-        "title" : "BlogDetail",
-        "id": blogid,
-        "data": dataObj,
-    }
-    return render(request, "ablog/detail.html", context=context)
+    else:
+        print('API call failed with status code:', res.status_code, res.text)
+        return HttpResponseNotFound('<h1>404 NOT FOUND</h1>')
 
 

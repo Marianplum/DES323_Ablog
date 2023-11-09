@@ -1,0 +1,18 @@
+
+
+{% comment %} <h1>{{message}}</h1> {% endcomment %}
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+$(document).ready(function() {
+    var deleteMessage = "{{ message }}";
+
+    if (deleteMessage) {
+        var confirmed = window.confirm(deleteMessage);
+
+        if (confirmed) {
+            // User clicked "OK" in the pop-up, so redirect to /home
+            window.location.href = '/home';
+        }
+    }
+});
+</script>
