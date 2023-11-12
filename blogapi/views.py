@@ -10,20 +10,45 @@ from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_protect
 
 
-
-
 # Create your views here.
 # views.py
 from rest_framework import viewsets
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
-from .serializers import BlogSerializer
-from .models import Blog
+from .serializers import BlogSerializer, DashbSerializer
+from .models import Blog, dashb
+
+import pandas as pd
 
 class BlogViewSet(viewsets.ModelViewSet):
     queryset = Blog.objects.all().order_by('blog_id')
     serializer_class = BlogSerializer
 
+class DashViewSet(viewsets.ModelViewSet):
+    queryset = dashb.objects.all().order_by('dash_d_id')
+    serializer_class = DashbSerializer
+
+
+def dash_data(requset):
+    url = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQOb_cBK7r0kJ1f7ceZqJAFLBPz2Bka4lpqg8eplqZ2NGWtSZvEt4P35g0XtCB4cvbHw6J2sRv9cPOe/pub?gid=0&single=true&output=csv"
+    df = pd.read_csv(url)
+    df.dropna()
+    data_sets = df[["num_views", "date", "ts"]]
+    sucess = []
+    errors = []
+    for index, row in data_sets.iterrows():
+        instance = dashb(
+            view_d = int(row['num_views']),
+            date_d = 'none'
+        )
+
+        try:
+            instance.save()
+            sucess.append(index)
+        except:
+            errors.append(index)
+
+    return JsonResponse({"sucess_indexs":sucess, "error_indexs":errors})
 
 
 
