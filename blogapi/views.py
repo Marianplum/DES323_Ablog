@@ -33,13 +33,13 @@ def dash_data(requset):
     url = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQOb_cBK7r0kJ1f7ceZqJAFLBPz2Bka4lpqg8eplqZ2NGWtSZvEt4P35g0XtCB4cvbHw6J2sRv9cPOe/pub?gid=0&single=true&output=csv"
     df = pd.read_csv(url)
     df.dropna()
-    data_sets = df[["num_views", "date", "ts"]]
+    data_sets = df[["num_views", "date"]]
     sucess = []
     errors = []
     for index, row in data_sets.iterrows():
         instance = dashb(
             view_d = int(row['num_views']),
-            date_d = 'none'
+            date_d = row['date'],
         )
 
         try:
