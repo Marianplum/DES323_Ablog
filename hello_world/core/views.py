@@ -67,16 +67,58 @@ def blog_post(request):
     return render(request, "ablog/blog-post.html", context=context)
 
 
+from django.shortcuts import render
+import requests
+
+from django.shortcuts import render
+import requests
+
 def home(request):
-    url = "http://127.0.0.1:8000/apiBlog/"
-    res = requests.get(url)
-    api_data = res.json()
+    # Assuming you want to fetch data for blogs with IDs 1 to 9
+    blog_ids = range(1, 10)
+
+    # Initialize empty lists to store data for library and recently sections
+    library_data = []
+    recently_data = []
+
+
+def home(request):
+    libid = range(1, 7)
+    rid = range(6, 9)
+    libd = []
+    recd = []
     
+    for blog_id in libid:
+        api_url = f"http://127.0.0.1:8000/apiBlog/{blog_id}/"
+        response = requests.get(api_url)
+        if response.status_code == 200:
+            data = response.json()
+            blog_info = {
+                "id": blog_id,
+                "title": data.get("title", ""),
+                "picUrl": data.get("picUrl", ""),
+            }
+            libd.append(blog_info)
+
+    for blog_id in rid:
+        api_url = f"http://127.0.0.1:8000/apiBlog/{blog_id}/"
+        response = requests.get(api_url)
+        if response.status_code == 200:
+            data = response.json()
+            blog_info = {
+                "id": blog_id,
+                "title": data.get("title", ""),
+                "picUrl": data.get("picUrl", ""),
+            }
+            recd.append(blog_info)
+
     context = {
-        "title": "Home",
-        "data" : api_data,
-        }
+        "libd": libd,
+        "recd": recd,
+    }
     return render(request, "ablog/home.html", context=context)
+
+
 
 def profile(request):
     context = {}
