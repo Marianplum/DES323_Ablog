@@ -5,23 +5,14 @@
         <div class="flex-1">
             <div class="p-10">
                 <h1 class="text-2xl font-bold text-black">Library</h1>
-                <!-- <div class="grid grid-cols-2 gap-4 mt-4">
-                    <a href="detail/1" class="p-20 border border-indigo-400 rounded-lg text-center bg-white h-10">Topic</a>
-                    <a href="detail/2" class="p-20 border border-indigo-400 rounded-lg text-center bg-white h-10">Topic</a>
-                    <a href="detail/3" class="p-20 border border-indigo-400 rounded-lg text-center bg-white h-10">Topic</a>
-                    <a href "detail/4" class="p-20 border border-indigo-400 rounded-lg text-center bg-white h-10">Topic</a>
-                    <a href="detail/5" class="p-20 border border-indigo-400 rounded-lg text-center bg-white h-10">Topic</a>
-                    <a href="detail/6" class="p-20 border border-indigo-400 rounded-lg text-center bg-white h-10">Topic</a>
-                </div> -->
-                <ul class="grid grid-cols-2 gap-4 mt-4">
-                    {% for post in blog_post %}
-                        <li>
-                            <a href="{% url 'detail' blogid %}" class="p-20 border border-indigo-400 rounded-lg text-center bg-white h-10">
-                                {{ data.title }}
-                            </a>
-                        </li>
-                    {% endfor %}
-                </ul>
+                <div class="grid grid-cols-2 gap-4 mt-4">
+                    <a href="detail/1" class="p-20 border border-indigo-400 rounded-lg text-center bg-cover bg-center" style="background-image: url(https://media.distractify.com/brand-img/U5FRWXltc/0x0/snorlax-1-1690310001695.jpg)">Topic</a>
+                    <a href="detail/2" class="p-20 border border-indigo-400 rounded-lg text-center bg-cover bg-center" style="background-image: url(https://media.distractify.com/brand-img/U5FRWXltc/0x0/snorlax-1-1690310001695.jpg)">Topic</a>
+                    <a href="detail/3" class="p-20 border border-indigo-400 rounded-lg text-center bg-cover bg-center" style="background-image: url(https://media.distractify.com/brand-img/U5FRWXltc/0x0/snorlax-1-1690310001695.jpg)">Topic</a>
+                    <a href="detail/4" class="p-20 border border-indigo-400 rounded-lg text-center bg-cover bg-center" style="background-image: url(https://media.distractify.com/brand-img/U5FRWXltc/0x0/snorlax-1-1690310001695.jpg)">Topic</a>
+                    <a href="detail/5" class="p-20 border border-indigo-400 rounded-lg text-center bg-cover bg-center" style="background-image: url(https://media.distractify.com/brand-img/U5FRWXltc/0x0/snorlax-1-1690310001695.jpg)">Topic</a>
+                    <a href="detail/6" class="p-20 border border-indigo-400 rounded-lg text-center bg-cover bg-center" style="background-image: url(https://media.distractify.com/brand-img/U5FRWXltc/0x0/snorlax-1-1690310001695.jpg)">Topic</a>
+                </div>
             </div>
         </div>
         <div class="w-1 border-r border-indigo-400"></div>
@@ -31,16 +22,9 @@
                 <a href="blogpost" class="block mt-4 px-10 py-3 bg-indigo-400 text-white font-bold rounded-lg text-center">Post Your Blog</a>
                 <div class="text-2xl font-bold text-black mt-8">Recently</div>
                 <div class="grid grid-cols-1 gap-4 mt-4">
-                    <!-- <a href="detail/7" class="p-14 border border-indigo-400 rounded-lg text-center bg-white h-10">Topic</a>
-                    <a href="detail/8" class="p-14 border border-indigo-400 rounded-lg text-center bg-white h-10">Topic</a>
-                    <a href="detail/9" class="p-14 border border-indigo-400 rounded-lg text-center bg-white h-10">Topic</a> -->
-                    {% for post in blog_post %}
-                        <li>
-                            <a href="{% url 'detail' blogid %}" class="p-20 border border-indigo-400 rounded-lg text-center bg-white h-10">
-                                {{ data.title }}
-                            </a>
-                        </li>
-                    {% endfor %}
+                    <a href="detail/7" class="p-14 border border-indigo-400 rounded-lg text-center bg-cover bg-center" style="background-image: url(https://media.distractify.com/brand-img/U5FRWXltc/0x0/snorlax-1-1690310001695.jpg)">Topic</a>
+                    <a href="detail/8" class="p-14 border border-indigo-400 rounded-lg text-center bg-cover bg-center" style="background-image: url(https://media.distractify.com/brand-img/U5FRWXltc/0x0/snorlax-1-1690310001695.jpg)">Topic</a>
+                    <a href="detail/9" class="p-14 border border-indigo-400 rounded-lg text-center bg-cover bg-center" style="background-image: url(https://media.distractify.com/brand-img/U5FRWXltc/0x0/snorlax-1-1690310001695.jpg)">Topic</a>
                 </div>
             </div>
         </div>
