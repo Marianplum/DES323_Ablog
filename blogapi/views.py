@@ -30,7 +30,7 @@ class DashViewSet(viewsets.ModelViewSet):
 
 
 def dash_data(requset):
-    url = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQOb_cBK7r0kJ1f7ceZqJAFLBPz2Bka4lpqg8eplqZ2NGWtSZvEt4P35g0XtCB4cvbHw6J2sRv9cPOe/pub?gid=0&single=true&output=csv"
+    url = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQOb_cBK7r0kJ1f7ceZqJAFLBPz2Bka4lpqg8eplqZ2NGWtSZvEt4P35g0XtCB4cvbHw6J2sRv9cPOe/pub?output=csv"
     df = pd.read_csv(url)
     df.dropna()
     data_sets = df[["num_views", "date"]]
@@ -45,8 +45,8 @@ def dash_data(requset):
         try:
             instance.save()
             sucess.append(index)
-        except:
-            errors.append(index)
+        except Exception as e:
+            errors.append({"index": index, "error_message": str(e)})
 
     return JsonResponse({"sucess_indexs":sucess, "error_indexs":errors})
 
