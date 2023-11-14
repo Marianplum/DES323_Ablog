@@ -18,7 +18,13 @@ from rest_framework.decorators import api_view
 from .serializers import BlogSerializer, DashbSerializer
 from .models import Blog, dashb
 
+
 import pandas as pd
+import requests
+from sklearn import preprocessing, svm
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LinearRegression
+
 
 class BlogViewSet(viewsets.ModelViewSet):
     queryset = Blog.objects.all().order_by('blog_id')
@@ -50,6 +56,20 @@ def dash_data(requset):
 
     return JsonResponse({"sucess_indexs":sucess, "error_indexs":errors})
 
+
+def see_dash_data(request):
+    # api_url = 'https://potential-space-garbanzo-gjwr4x7569gcvgwg-8000.app.github.dev/apiDash/'
+    api_url = 'http://localhost:8000/apiDash/'
+    # api_url = 'https://api.open-meteo.com/v1/forecast?latitude=14.0135&longitude=100.5305&daily=temperature_2m_max,temperature_2m_min,rain_sum&timezone=Asia%2FBangkok&start_date=2023-10-18&end_date=2023-10-25/'
+    response = requests.get(api_url)
+
+    if response.status_code == 200:
+        data = response.json()
+        print(data)
+        return JsonResponse(data, safe=False)
+    else:
+        error_message = {"error": f"Failed to fetch data. Status code: {response.status_code}"}
+        return JsonResponse(error_message, status=500)
 
 
 @api_view(['POST'])
@@ -114,3 +134,6 @@ def generate_unique_filename(filename, extension):
 
 # set environment for api google-cloud - texttospeech
 # pip install --upgrade google-cloud-texttospeech
+
+# simple Linear regression (python_library)
+# pip install -U scikit -learn

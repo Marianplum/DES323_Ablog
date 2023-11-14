@@ -11,4 +11,5 @@ urlpatterns = [
     path('/tts',views.textToSpeech),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     path('/test_dash', views.dash_data),
+    path('/see_dash', views.see_dash_data),
 ]
