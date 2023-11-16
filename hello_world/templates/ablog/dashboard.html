@@ -6,6 +6,7 @@
 
 
 <head>
+
     <script src="https://d3js.org/d3.v7.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
@@ -18,40 +19,89 @@
 
     <button id="fetchDataButton" class="m-5 text-center bg-indigo-500 text-white rounded-md h-10 px-5 hover:bg-indigo-400" onclick="display_visual()"> See the Views </button>
     <div id="chart"></div>
+    <div id="avg" class="font-bold font-medium m-16">
+        <!-- <p> test average views = </p> -->
+    </div>
 
     <script>
+        
         async function display_visual() {
 
-            alert('clicked')
+            // alert('clicked')
 
-            let dash_data = await axios.get('http://localhost:8000/apiDash/')
-                .then(function(response) {
-                    return response.data;
-                });
+            try {
 
-            let view_chart = [];
+                let dash_data = await axios.get('http://localhost:8000/apiDash/')
+                    .then(function(response) {
+                        // print(response.data);
+                        return response.data;
+                    });
 
-            dash_data.forEach((data, index) => {
-                let view_obj = {
-                    "x_date":data.date_d[index],
-                    "y_view":data.view_d[index],
+                if (!dash_data || dash_data.length === 0) {
+                    console.log("No data available.");
+                    return;
                 }
 
-                view_chart.push(view_obj);
+                // Sort the data by date_d in ascending order
+                dash_data.sort((a, b) => new Date(a.date_d) - new Date(b.date_d));
+
+
+                let view_chart = [];
+
+                dash_data.forEach((data) => {
+                    let view_obj = {
+                        "x_date":data.date_d,
+                        "y_view":data.view_d,
+                    }
+
+                    view_chart.push(view_obj);
+
+                    // console.log("View Chart:", view_chart); 
+                    
+                });
+    
                 
-            });
-            
-            const plot = Plot.plot({
-                marks:[
-                    Plot.lineY(view_chart,{x:"x_date", y:"y_view", tip:"x", stroke:"blue"})
-                ]
-            })
-            const div = document.getElementById('chart');
-            div.append(plot);
+                const plot = Plot.plot({
+                    marks:[
+                        Plot.lineY(view_chart,{x:"x_date", y:"y_view", tip:"x", stroke:"blue"})
+                    ],
+
+                    x: {
+                        label: "Date", 
+                    },
+                    y: {
+                        label: "Number of Views", 
+                    },
+                });
+
+                const div = document.getElementById('chart');
+                div.innerHTML = ''; // Clear existing content
+                div.append(plot);
+
+                // Calculate the average views
+                const averageViews = avg_views(view_chart);
+                const averageDiv = document.getElementById('avg');
+                averageDiv.innerHTML = `<p>Average Views: ${averageViews.toFixed(2)}</p>`;
+
+                // Style the axis labels
+                // d3.selectAll('.axis text').style('font-size', '20px').style('fill', '#bb4141');
+                // d3.selectAll('.axis path, .axis line').style('fill', 'none').style('stroke', 'red').style('shape-rendering', 'crispEdges');
+
+            } catch (error) {
+                console.error("An error occurred:", error);
+            }
 
         }
 
-        display_visual();
+        // test 
+        // display_visual();
+
+        function avg_views(view_chart){
+            
+            const totalViews = view_chart.reduce((sum, data) => sum + data.y_view, 0);
+            const average = totalViews / view_chart.length;
+            return average;
+        }
 
     </script>
 </body>
@@ -59,100 +109,3 @@
 
 {% endblock %}
 
-<!-- <script>
-    async function display_visual() {
-
-        try {
-            const response = await axios.get('http://localhost:8000/apiBlog/');
-            return response.data;
-        } catch (error) {
-            console.error(error);
-            throw error;
-        }
-    }
-
-    // Define a function to create the chart using D3.js
-    function createChart(data) {
-        // Define the dimensions of the chart
-        const margin = { top: 20, right: 30, bottom: 40, left: 40 };
-        const width = 800 - margin.left - margin.right;
-        const height = 400 - margin.top - margin.bottom;
-
-        // Extract and format the data
-        const viewsData = data.map(d => ({
-            date: new Date(d.date), // Assuming date is in a suitable format
-            views: +d.views // Assuming views are provided as numbers
-        }));
-
-        // Create scales for the X and Y axes
-        const xScale = d3.scaleBand()
-            .domain(viewsData.map(d => d.date))
-            .range([0, width])
-            .padding(0.1);
-
-        const yScale = d3.scaleLinear()
-            .domain([0, d3.max(viewsData, d => d.views)])
-            .nice()
-            .range([height, 0]);
-
-        // Create an SVG container
-        const svg = d3.select('#chart')
-            .append('svg')
-            .attr('width', width + margin.left + margin.right)
-            .attr('height', height + margin.top + margin.bottom)
-            .append('g')
-            .attr('transform', `translate(${margin.left}, ${margin.top})`);
-
-        // Create and style the bars
-        svg.selectAll('rect')
-            .data(viewsData)
-            .enter()
-            .append('rect')
-            .attr('x', d => xScale(d.date))
-            .attr('y', d => yScale(d.views))
-            .attr('width', xScale.bandwidth())
-            .attr('height', d => height - yScale(d.views))
-            .attr('fill', 'steelblue');
-
-        // Create X and Y axes
-        const xAxis = d3.axisBottom(xScale);
-        const yAxis = d3.axisLeft(yScale);
-
-        svg.append('g')
-            .attr('class', 'x-axis')
-            .attr('transform', `translate(0, ${height})`)
-            .call(xAxis);
-
-        svg.append('g')
-            .attr('class', 'y-axis')
-            .call(yAxis);
-
-        // Add labels
-        svg.append('text')
-            .attr('x', width / 2)
-            .attr('y', height + margin.top + 20)
-            .attr('text-anchor', 'middle')
-            .text('Date');
-
-        svg.append('text')
-            .attr('transform', 'rotate(-90)')
-            .attr('x', -height / 2)
-            .attr('y', -margin.left)
-            .attr('text-anchor', 'middle')
-            .text('Views');
-
-    }
-
-    // Add a click event listener to fetch and display the data
-    document.getElementById('fetchDataButton').addEventListener('click', async () => {
-        try {
-            const data = await fetchDataFromApi();
-            createChart(data);
-        } catch (error) {
-            console.error('Failed to fetch and display data:', error);
-        }
-    });
-
-    display_visual()
-
-</script> -->
