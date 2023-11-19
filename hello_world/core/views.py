@@ -8,6 +8,7 @@ from django.http import HttpResponseRedirect
 import re
 from rest_framework.response import Response
 from django.http import HttpResponseNotFound
+from urllib.parse import urlparse
 
 def index(request):
     context = {
@@ -74,47 +75,59 @@ from django.shortcuts import render
 import requests
 
 def home(request):
-    # Assuming you want to fetch data for blogs with IDs 1 to 9
-    blog_ids = range(1, 10)
+    # libid = range(1, 9)
+    # rid = range(6, 9)
+    # libd = []
+    # recd = []
+    
+    # for blog_id in libid:
+    #     api_url = f"http://127.0.0.1:8000/apiBlog/{blog_id}/"
+    #     response = requests.get(api_url)
+    #     if response.status_code == 200:
+    #         data = response.json()
+    #         blog_info = {
+    #             "id": blog_id,
+    #             "title": data.get("title", ""),
+    #             "picUrl": data.get("picUrl", ""),
+    #         }
+    #         libd.append(blog_info)
 
-    # Initialize empty lists to store data for library and recently sections
-    library_data = []
-    recently_data = []
-
-
-def home(request):
-    libid = range(1, 7)
-    rid = range(6, 9)
+    # for blog_id in rid:
+    #     api_url = f"http://127.0.0.1:8000/apiBlog/{blog_id}/"
+    #     response = requests.get(api_url)
+    #     if response.status_code == 200:
+    #         data = response.json()
+    #         blog_info = {
+    #             "id": blog_id,
+    #             "title": data.get("title", ""),
+    #             "picUrl": data.get("picUrl", ""),
+    #         }
+    #         recd.append(blog_info)
     libd = []
     recd = []
-    
-    for blog_id in libid:
-        api_url = f"http://127.0.0.1:8000/apiBlog/{blog_id}/"
-        response = requests.get(api_url)
-        if response.status_code == 200:
-            data = response.json()
+
+    api_url = f"http://127.0.0.1:8000/apiBlog/"
+    res = requests.get(api_url)
+    if res.status_code == 200:
+        api_data = res.json()
+        # print(api_data)
+        for item in api_data:
+            url_parts = item['url'].split('/')
+            print(url_parts)
+            id_from_url = url_parts[-2]
+            id_as_int = int(id_from_url)
             blog_info = {
-                "id": blog_id,
-                "title": data.get("title", ""),
-                "picUrl": data.get("picUrl", ""),
+                "id": id_as_int,
+                "title": item['title'],
+                "picUrl": item['picUrl'],
             }
             libd.append(blog_info)
-
-    for blog_id in rid:
-        api_url = f"http://127.0.0.1:8000/apiBlog/{blog_id}/"
-        response = requests.get(api_url)
-        if response.status_code == 200:
-            data = response.json()
-            blog_info = {
-                "id": blog_id,
-                "title": data.get("title", ""),
-                "picUrl": data.get("picUrl", ""),
-            }
-            recd.append(blog_info)
+    
+    recd = libd[::-1]
 
     context = {
         "libd": libd,
-        "recd": recd,
+        "recd": recd[:4],
     }
     return render(request, "ablog/home.html", context=context)
 
@@ -168,6 +181,10 @@ def blogDetail(request,blogid):
         audio_path = api_data['audio_path']
         audio_path = audio_path[len('hello_world/static/'):] 
 
+        url_parts = api_data['url'].split('/')
+        id_from_url = url_parts[-2]
+        path = '/apiBlog/'+id_from_url
+
         dataObj = { 
             "coverImage" : api_data['picUrl'],
             "topic" : api_data['title'],
@@ -175,7 +192,7 @@ def blogDetail(request,blogid):
             "content" : api_data['content'],
             "file_path" : audio_path,
             "file_size" : api_data['file_size'],
-            "url" : api_data['url'],
+            "url" : path,
         }
         
         context = {
