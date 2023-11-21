@@ -68,6 +68,7 @@ MIDDLEWARE = [
 ]
 
 X_FRAME_OPTIONS = "ALLOW-FROM preview.app.github.dev"
+CORS_ORIGIN_ALLOW_ALL = True   
 
 ROOT_URLCONF = "hello_world.urls"
 
