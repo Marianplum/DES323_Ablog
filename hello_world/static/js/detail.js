@@ -10,3 +10,6 @@ const deleteBlog = () => {
     console.log('func : delete blog')
 }
 
+const refreshBlog=()=>{
+    window.location.reload();
+}
