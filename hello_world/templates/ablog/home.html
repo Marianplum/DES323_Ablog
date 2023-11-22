@@ -14,7 +14,7 @@
                     {% for blog in libd %}
                         <a href="{% url 'blogDetail' blog.id %}" class="relative overflow-hidden rounded-lg h-72">
                             <div class="bg-cover bg-center h-full rounded-t-lg" style="background-image: url({{ blog.picUrl }})"></div>
-                            <div class="absolute bottom-0 left-0 right-0 p-4 bg-white text-black text-sm opacity-75 rounded-b-lg">{{ blog.title }}</div>
+                            <div class="absolute bottom-0 left-0 right-0 p-4 bg-white text-black text-sm rounded-b-lg">{{ blog.title }}</div>
                         </a>
                     {% endfor %}
                 </div>
@@ -36,7 +36,7 @@
                     {% for blog in recd %}
                         <a href="{% url 'blogDetail' blog.id %}" class="relative overflow-hidden rounded-lg">
                             <div class="bg-cover bg-center h-60 rounded-lg" style="background-image: url({{ blog.picUrl }})"></div>
-                            <div class="absolute bottom-0 left-0 right-0 p-4 bg-white text-black text-sm opacity-75 rounded-b-lg">{{ blog.title }}</div>
+                            <div class="absolute bottom-0 left-0 right-0 p-4 bg-white text-black text-sm rounded-b-lg">{{ blog.title }}</div>
                         </a>
                     {% endfor %}
                 </div>
